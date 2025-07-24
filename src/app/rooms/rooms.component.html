@@ -8,6 +8,7 @@
 </div>
 <div>{{ room ? (room | json) : "" }}</div>
 <button class="btn btn-primary" (click)="addRoom()">add room</button>
+<button class="btn btn-primary" (click)="editRoom()">edit room</button>
 <app-rooms-list
   [rooms]="roomList"
   (selectedRoom)="selectRoom($event)"

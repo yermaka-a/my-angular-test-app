@@ -32,8 +32,9 @@ export class RoomsComponent implements OnInit, DoCheck {
   }
 
   ngOnInit(): void {
-    this.roomService.getRooms().subscribe((rooms) => {
+    this.roomService.getRooms$.subscribe((rooms) => {
       this.roomList = rooms;
+      this.roomService.getPhotos().subscribe((data) => console.log(data));
     });
   }
 
@@ -41,20 +42,34 @@ export class RoomsComponent implements OnInit, DoCheck {
     this.hideRooms = !this.hideRooms;
   }
   addRoom() {
-    this.roomList = [
-      ...this.roomList,
-      {
-        roomNumber: '4',
-        roomType: 'Next Room',
-        amenities: 'some funcs',
-        price: 15200,
-        photos: 'image',
-        checkingTime: new Date('10-Nov-2021'),
-        checkoutTime: new Date('15-Nov-2021'),
-      },
-    ];
+    const room = {
+      roomNumber: '4',
+      roomType: 'Next Room',
+      amenities: 'some funcs',
+      price: 15200,
+      photos: 'image',
+      checkingTime: new Date('10-Nov-2021'),
+      checkoutTime: new Date('15-Nov-2021'),
+    };
+
+    this.roomService.addRoom(room).subscribe((data) => {
+      this.roomList = this.roomList = data;
+    });
   }
   selectRoom(room: RoomList) {
     this.room = room;
+  }
+
+  editRoom() {
+    const room: RoomList = {
+      roomNumber: '3',
+      roomType: 'Next Room',
+      amenities: 'some funcs',
+      price: 15200,
+      photos: 'image',
+      checkingTime: new Date('10-Nov-2021'),
+      checkoutTime: new Date('15-Nov-2021'),
+    };
+    this.roomService.editRoom(room).subscribe((data) => (this.roomList = data));
   }
 }

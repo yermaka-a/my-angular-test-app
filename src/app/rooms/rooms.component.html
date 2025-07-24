@@ -1,39 +1,14 @@
 <p>rooms works!</p>
 <h1>welcome to {{ hotelName }}</h1>
 
+<button class="btn btn-primary" (click)="toggle()">toggle</button>
 <div [hidden]="hideRooms">
   Number of Rooms:
   <div [innerText]="numberOfRooms"></div>
 </div>
-
-<button (click)="toggle()">toggle</button>
-<br />
-{{ roomList | json }}
-<div>
-  Rooms List {{ rooms.availableRooms }}
-  <table>
-    <thead>
-      <tr>
-        <th>1</th>
-        <th>2</th>
-        <th>3</th>
-        <th>4</th>
-        <th>5</th>
-        <th>6</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      @for (item of roomList | slice: 0:1; track $index; let e = $even) {
-      <tr [ngClass]="e ? 'even' : 'odd'">
-        <td>{{ e ? "even" : "odd" }}</td>
-        <td>{{ item.checkingTime | date : "medium" }}</td>
-        <td>{{ item.photos }}</td>
-        <td>{{ item.price }}</td>
-        <td>{{ item.roomNumber }}</td>
-        <td>{{ item.roomType }}</td>
-      </tr>
-      }
-    </tbody>
-  </table>
-</div>
+<div>{{ room ? (room | json) : "" }}</div>
+<button class="btn btn-primary" (click)="addRoom()">add room</button>
+<app-rooms-list
+  [rooms]="roomList"
+  (selectedRoom)="selectRoom($event)"
+></app-rooms-list>

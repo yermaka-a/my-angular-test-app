@@ -1,7 +1,6 @@
 import {
   ApplicationConfig,
   inject,
-  provideAppInitializer,
   provideZoneChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';

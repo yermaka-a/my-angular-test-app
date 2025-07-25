@@ -14,6 +14,9 @@ import { EmployeeComponent } from './employee/employee.component';
 
 import { LocalStorageToken } from './localstorage.token';
 import { CommonModule } from '@angular/common';
+import { requestInterceptor } from './request.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { InitService } from './init.service';
 
 @Component({
   selector: 'app-root',
@@ -33,7 +36,12 @@ export class AppComponent implements AfterViewInit, OnInit {
 
   @ViewChildren(HeaderComponent)
   headerChildrenComponent!: QueryList<HeaderComponent>;
-  constructor(@Inject(LocalStorageToken) private localStorage: Storage) {}
-  ngOnInit(): void {}
+  constructor(
+    @Inject(LocalStorageToken) private localStorage: Storage,
+    private initService: InitService
+  ) {}
+  ngOnInit(): void {
+    console.log('config', this.initService.config);
+  }
   ngAfterViewInit(): void {}
 }

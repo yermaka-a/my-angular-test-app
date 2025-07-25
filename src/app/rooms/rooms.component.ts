@@ -1,9 +1,16 @@
-import { Component, inject, type DoCheck, type OnInit } from '@angular/core';
+import {
+  Component,
+  inject,
+  type DoCheck,
+  type OnDestroy,
+  type OnInit,
+} from '@angular/core';
 import type { Room, RoomList } from './rooms';
 
 import { RoomsListComponent } from './rooms-list/rooms-list.component';
 import { RoomsService } from './services/rooms.service';
 import { CommonModule } from '@angular/common';
+import { map, type Subject, type Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-rooms',
@@ -11,10 +18,15 @@ import { CommonModule } from '@angular/common';
   templateUrl: './rooms.component.html',
   styleUrl: './rooms.component.scss',
 })
-export class RoomsComponent implements OnInit, DoCheck {
+export class RoomsComponent implements OnInit, DoCheck, OnDestroy {
   hotelName = 'hotelName';
   numberOfRooms = 10;
   hideRooms = false;
+  error$!: Subject<string>;
+  private roomService = inject(RoomsService);
+  roomsCount$ = this.roomService.getRooms$.pipe(map((rooms) => rooms.length));
+  subscription: Subscription | undefined;
+  rooms$ = this.roomService.getRooms$;
   rooms: Room = {
     totalRooms: 0,
     availableRooms: 10,
@@ -23,8 +35,6 @@ export class RoomsComponent implements OnInit, DoCheck {
   room?: RoomList;
   roomList: RoomList[] = [];
 
-  private roomService = inject(RoomsService);
-
   constructor() {}
 
   ngDoCheck(): void {
@@ -32,10 +42,10 @@ export class RoomsComponent implements OnInit, DoCheck {
   }
 
   ngOnInit(): void {
-    this.roomService.getRooms$.subscribe((rooms) => {
-      this.roomList = rooms;
-      this.roomService.getPhotos().subscribe((data) => console.log(data));
-    });
+    // this.subscription = this.roomService.getRooms$.subscribe((rooms) => {
+    //   this.roomList = rooms;
+    //   this.roomService.getPhotos().subscribe((data) => console.log(data));
+    // });
   }
 
   toggle() {
@@ -71,5 +81,9 @@ export class RoomsComponent implements OnInit, DoCheck {
       checkoutTime: new Date('15-Nov-2021'),
     };
     this.roomService.editRoom(room).subscribe((data) => (this.roomList = data));
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) this.subscription.unsubscribe();
   }
 }

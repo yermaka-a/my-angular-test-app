@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { APP_SERVICE_CONFIG } from '../../AppConfig/appconfig.service';
-import { HttpClient, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import type { RoomList } from '../rooms';
 import { shareReplay } from 'rxjs';
 
@@ -9,12 +9,16 @@ import { shareReplay } from 'rxjs';
 })
 export class RoomsService {
   config = inject(APP_SERVICE_CONFIG);
+  headers = new HttpHeaders({ token: '12345564787654gf' });
   http = inject(HttpClient);
-  getRooms$ = this.http.get<RoomList[]>('/api/rooms').pipe(shareReplay(1));
+  getRooms$ = this.http
+    .get<RoomList[]>('/api/rooms', {
+      headers: this.headers,
+    })
+    .pipe(shareReplay(1));
   constructor() {}
 
   getRooms() {
-    console.log(this.config);
     return this.http.get<RoomList[]>('/api/rooms');
   }
 

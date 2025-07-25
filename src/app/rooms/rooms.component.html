@@ -9,7 +9,8 @@
 <div>{{ room ? (room | json) : "" }}</div>
 <button class="btn btn-primary" (click)="addRoom()">add room</button>
 <button class="btn btn-primary" (click)="editRoom()">edit room</button>
+
 <app-rooms-list
-  [rooms]="roomList"
+  [rooms]="rooms$ | async"
   (selectedRoom)="selectRoom($event)"
 ></app-rooms-list>

@@ -1,7 +1,19 @@
-<form action="">
-  <div>{{ room | json }}</div>
+<div>
+  {{ roomsForm.pristine }}
+  {{ roomsForm.dirty }}
+  {{ roomsForm.invalid }}
+  {{ roomsForm.valid }}
+  {{ roomsForm.value | json }}
+</div>
+<form #roomsForm="ngForm" (ngSubmit)="AddRoom(roomsForm)">
+  @if (successMsg !== ''){
+  <div class="alert alert-success">
+    {{ successMsg }}
+  </div>
+  }
   <div class="form-group">
     <input
+      required
       class="form-control"
       type="text"
       name="roomType"
@@ -11,15 +23,25 @@
   </div>
   <div class="form-group">
     <input
+      #roomamanaties="ngModel"
+      required
       class="form-control"
+      minlength="5"
+      maxlength="20"
+      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
       type="text"
       name="amenities"
       [(ngModel)]="room.amenities"
       placeholder="Amenities"
     />
+    <div>{{ roomamanaties.errors | json }}</div>
+    @if (roomamanaties.errors?.['minlength']){
+    <div class="alert alert-danger">Amenities should be min 5 chars!</div>
+    }
   </div>
   <div class="form-group">
     <input
+      required
       class="form-control"
       type="number"
       [(ngModel)]="room.price"
@@ -29,6 +51,7 @@
   </div>
   <div class="form-group">
     <input
+      required
       class="form-control"
       type="text"
       [(ngModel)]="room.photos"
@@ -38,6 +61,7 @@
   </div>
   <div class="form-group">
     <input
+      required
       class="form-control"
       type="datetime"
       [(ngModel)]="room.checkingTime"
@@ -47,6 +71,7 @@
   </div>
   <div class="form-group">
     <input
+      required
       class="form-control"
       type="datetime"
       [(ngModel)]="room.checkoutTime"
@@ -56,6 +81,7 @@
   </div>
   <div class="form-group">
     <input
+      required
       class="form-control"
       type="number"
       name="rating"

@@ -9,24 +9,21 @@ import {
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 
-import { ContainerComponent } from './container/container.component';
-import { EmployeeComponent } from './employee/employee.component';
-
 import { LocalStorageToken } from './localstorage.token';
 import { CommonModule } from '@angular/common';
-import { requestInterceptor } from './request.interceptor';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
 import { InitService } from './init.service';
+import { AppNavComponent } from './app-nav/app-nav.component';
+
+import {
+  MatDrawer,
+  MatDrawerContainer,
+  MatDrawerContent,
+} from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-root',
-  imports: [
-    HeaderComponent,
-    RouterOutlet,
-    ContainerComponent,
-    EmployeeComponent,
-    CommonModule,
-  ],
+  imports: [RouterOutlet, CommonModule, AppNavComponent],
 
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

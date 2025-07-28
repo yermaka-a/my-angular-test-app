@@ -2,12 +2,13 @@
   <table class="table">
     <thead>
       <tr>
-        <th>1</th>
-        <th>2</th>
-        <th>3</th>
-        <th>4</th>
-        <th>5</th>
-        <th>6</th>
+        <th>Even or Odd</th>
+        <th>check-in time</th>
+        <th>image</th>
+        <th>cost</th>
+        <th>room number</th>
+        <th>type</th>
+        <th>rating</th>
         <th>Select Room</th>
       </tr>
     </thead>
@@ -22,9 +23,17 @@
         <td>{{ item.price }}</td>
         <td>{{ item.roomNumber }}</td>
         <td>{{ item.roomType }}</td>
+        <td>{{ item.rating }}</td>
         <td>
-          <button class="btn btn-primary" (click)="selectRoom(item)">
+          <!-- <button class="btn btn-primary" (click)="selectRoom(item)">
             Select
+          </button> -->
+
+          <button
+            class="btn btn-primary"
+            [routerLink]="['/rooms', item.roomNumber]"
+          >
+            Book Room
           </button>
         </td>
       </tr>

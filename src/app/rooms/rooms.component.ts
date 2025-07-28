@@ -53,6 +53,7 @@ export class RoomsComponent implements OnInit, DoCheck, OnDestroy {
   }
   addRoom() {
     const room = {
+      rating: 0,
       roomNumber: '4',
       roomType: 'Next Room',
       amenities: 'some funcs',
@@ -72,6 +73,7 @@ export class RoomsComponent implements OnInit, DoCheck, OnDestroy {
 
   editRoom() {
     const room: RoomList = {
+      rating: 0,
       roomNumber: '3',
       roomType: 'Next Room',
       amenities: 'some funcs',

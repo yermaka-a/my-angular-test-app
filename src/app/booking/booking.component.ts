@@ -64,16 +64,16 @@ export class BookingComponent implements OnInit {
       guestZipCode: [''],
       guestCount: [''],
       address: this.fb.group({
-        addressLine1: [''],
+        addressLine1: ['', { validators: [Validators.required] }],
         addressLine2: [''],
-        city: [''],
-        state: [''],
+        city: ['', { validators: [Validators.required] }],
+        state: ['', { validators: [Validators.required] }],
         country: [''],
         pinCodes: [''],
       }),
       guests: this.fb.array([
         this.fb.group({
-          guestName: [''],
+          guestName: ['', { validators: [Validators.required] }],
           age: new FormControl(''),
         }),
       ]),
@@ -108,6 +108,8 @@ export class BookingComponent implements OnInit {
       },
       guests: [],
     });
+
+    this.getBookingData();
   }
   addGuest() {
     this.guests.push(
@@ -125,5 +127,34 @@ export class BookingComponent implements OnInit {
   }
   removeGuest(i: number) {
     this.guests.removeAt(i);
+  }
+  getBookingData() {
+    this.bookingForm.setValue({
+      tnc: false,
+      roomId: '',
+      guestEmail: 'test@gmail.com',
+      checkinDate: new Date('10-Feb-2020'),
+      checkoutDate: '',
+      bookingStatus: '',
+      bookingAmount: '',
+      bookingDate: '',
+      mobileNumber: '',
+      guestName: '',
+      guestAddress: '',
+      guestCity: '',
+      guestState: '',
+      guestCountry: '',
+      guestZipCode: '',
+      guestCount: '',
+      address: {
+        addressLine1: '',
+        addressLine2: '',
+        city: '',
+        state: '',
+        country: '',
+        pinCodes: '',
+      },
+      guests: [],
+    });
   }
 }

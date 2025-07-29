@@ -7,7 +7,12 @@
 <button mat-raised-button color="primary" type="button" (click)="addPassport()">
   Add passport
 </button>
-<button mat-raised-button color="primary" type="button" (click)="removePassport()">
+<button
+  mat-raised-button
+  color="primary"
+  type="button"
+  (click)="removePassport()"
+>
   Remove passport
 </button>
 <form [formGroup]="bookingForm" (ngSubmit)="addBooking()">
@@ -108,6 +113,14 @@
         <mat-label>age</mat-label>
         <input type="number" matInput formControlName="age" />
       </mat-form-field>
+      <button
+        mat-raised-button
+        color="secondary"
+        type="button"
+        (click)="removeGuest($index)"
+      >
+        Remove guest
+      </button>
     </div>
     }
   </div>

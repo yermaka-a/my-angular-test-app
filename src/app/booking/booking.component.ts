@@ -91,4 +91,7 @@ export class BookingComponent implements OnInit {
   removePassport() {
     this.bookingForm.removeControl('passport');
   }
+  removeGuest(i: number) {
+    this.guests.removeAt(i);
+  }
 }

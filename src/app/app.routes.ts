@@ -13,8 +13,8 @@ export const routes: Routes = [
     path: 'rooms',
     loadComponent: () =>
       import('./rooms/rooms.component').then((c) => c.RoomsComponent),
-    canActivate: [loginGuard],
-    canActivateChild: [roomGuard],
+    // canActivate: [loginGuard],
+    // canActivateChild: [roomGuard],
     children: [
       {
         path: 'add',
@@ -30,7 +30,11 @@ export const routes: Routes = [
     ],
   },
   { path: 'employee', component: EmployeeComponent, canActivate: [loginGuard] },
-  { path: 'booking', component: BookingComponent, canActivate: [loginGuard] },
+  {
+    path: 'booking',
+    component: BookingComponent,
+    // canActivate: [loginGuard]
+  },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: '**', component: NotfoundComponent },

@@ -2,8 +2,21 @@
 {{ bookingForm.value | json }}
 {{ bookingForm.pristine | json }}
 {{ bookingForm.dirty | json }}
+<br />
 
+<button mat-raised-button color="primary" type="button" (click)="addPassport()">
+  Add passport
+</button>
+<button mat-raised-button color="primary" type="button" (click)="removePassport()">
+  Remove passport
+</button>
 <form [formGroup]="bookingForm" (ngSubmit)="addBooking()">
+  @if(bookingForm.get('passport')){
+  <mat-form-field subscriptSizing="dynamic" class="example-full-width">
+    <mat-label>Passport</mat-label>
+    <input matInput formControlName="passport" />
+  </mat-form-field>
+  }
   <mat-form-field class="example-full-width" subscriptSizing="dynamic">
     <mat-label>Room Id</mat-label>
     <input type="text" matInput formControlName="roomId" />

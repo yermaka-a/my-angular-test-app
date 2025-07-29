@@ -85,4 +85,10 @@ export class BookingComponent implements OnInit {
       })
     );
   }
+  addPassport() {
+    this.bookingForm.addControl('passport', new FormControl(''));
+  }
+  removePassport() {
+    this.bookingForm.removeControl('passport');
+  }
 }

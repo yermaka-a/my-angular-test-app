@@ -46,38 +46,48 @@ export class BookingComponent implements OnInit {
     return this.bookingForm.get('guests') as FormArray;
   }
   ngOnInit() {
-    this.bookingForm = this.fb.group({
-      tnc: new FormControl(false, { validators: [Validators.requiredTrue] }),
-      roomId: new FormControl(''),
-      guestEmail: ['', [Validators.required, Validators.email]],
-      checkinDate: [''],
-      checkoutDate: [''],
-      bookingStatus: [''],
-      bookingAmount: [''],
-      bookingDate: [''],
-      mobileNumber: [''],
-      guestName: ['', [Validators.required, Validators.minLength(5)]],
-      guestAddress: [''],
-      guestCity: [''],
-      guestState: [''],
-      guestCountry: [''],
-      guestZipCode: [''],
-      guestCount: [''],
-      address: this.fb.group({
-        addressLine1: ['', { validators: [Validators.required] }],
-        addressLine2: [''],
-        city: ['', { validators: [Validators.required] }],
-        state: ['', { validators: [Validators.required] }],
-        country: [''],
-        pinCodes: [''],
-      }),
-      guests: this.fb.array([
-        this.fb.group({
-          guestName: ['', { validators: [Validators.required] }],
-          age: new FormControl(''),
+    this.bookingForm = this.fb.group(
+      {
+        tnc: new FormControl(false, { validators: [Validators.requiredTrue] }),
+        roomId: new FormControl(''),
+        guestEmail: [
+          '',
+          {
+            updateOn: 'blur',
+            validators: [Validators.required, Validators.email],
+          },
+        ],
+        checkinDate: [''],
+        checkoutDate: [''],
+        bookingStatus: [''],
+        bookingAmount: [''],
+        bookingDate: [''],
+        mobileNumber: [''],
+        guestName: ['', [Validators.required, Validators.minLength(5)]],
+        guestAddress: [''],
+        guestCity: [''],
+        guestState: [''],
+        guestCountry: [''],
+        guestZipCode: [''],
+        guestCount: [''],
+        address: this.fb.group({
+          addressLine1: ['', { validators: [Validators.required] }],
+          addressLine2: [''],
+          city: ['', { validators: [Validators.required] }],
+          state: ['', { validators: [Validators.required] }],
+          country: [''],
+          pinCodes: [''],
         }),
-      ]),
-    });
+        guests: this.fb.array([
+          this.fb.group({
+            guestName: ['', { validators: [Validators.required] }],
+            age: new FormControl(''),
+          }),
+        ]),
+      },
+      { updateOn: 'blur' }
+    );
+    this.bookingForm.valueChanges.subscribe((data) => console.log(data));
   }
   addBooking() {
     console.log(this.bookingForm.value);

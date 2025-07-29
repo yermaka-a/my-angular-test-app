@@ -43,7 +43,7 @@ export class BookingComponent implements OnInit {
   }
   ngOnInit() {
     this.bookingForm = this.fb.group({
-      roomId: new FormControl({ value: '2', disabled: true }),
+      roomId: new FormControl(''),
       guestEmail: [''],
       checkinDate: [''],
       checkoutDate: [''],

@@ -58,6 +58,10 @@ export class BookingComponent implements OnInit {
       address: this.fb.group({
         addressLine1: [''],
         addresLine2: [''],
+        city: [''],
+        state: [''],
+        country: [''],
+        pinCodes: [''],
       }),
     });
   }

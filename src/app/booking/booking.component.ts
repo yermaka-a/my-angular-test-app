@@ -2,7 +2,9 @@ import { Component, Inject, type OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
+  NgModel,
   ReactiveFormsModule,
+  Validators,
   type FormArray,
   type FormGroup,
 } from '@angular/forms';
@@ -15,6 +17,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 @Component({
   selector: 'app-booking',
   imports: [
@@ -27,6 +30,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatButtonModule,
     MatExpansionModule,
     MatIconModule,
+    MatCheckboxModule,
   ],
   templateUrl: './booking.component.html',
   styleUrl: './booking.component.scss',
@@ -43,15 +47,16 @@ export class BookingComponent implements OnInit {
   }
   ngOnInit() {
     this.bookingForm = this.fb.group({
+      tnc: new FormControl(false, { validators: [Validators.requiredTrue] }),
       roomId: new FormControl(''),
-      guestEmail: [''],
+      guestEmail: ['', [Validators.required, Validators.email]],
       checkinDate: [''],
       checkoutDate: [''],
       bookingStatus: [''],
       bookingAmount: [''],
       bookingDate: [''],
       mobileNumber: [''],
-      guestName: [''],
+      guestName: ['', [Validators.required, Validators.minLength(5)]],
       guestAddress: [''],
       guestCity: [''],
       guestState: [''],

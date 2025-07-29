@@ -12,6 +12,10 @@ export class LoginService {
       this.isLoggedIn = true;
       this.isAdmin = true;
     }
+    if (email === 'user@gmail.com' && password === 'user') {
+      this.isLoggedIn = true;
+      this.isAdmin = false;
+    }
     return this.isLoggedIn;
   }
 }

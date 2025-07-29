@@ -5,13 +5,14 @@ import { roomGuard } from './guards/room.guard';
 import { LoginComponent } from './login/login.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { RoomsBookingComponent } from './rooms-booking/rooms-booking.component';
-import { RoomsComponent } from './rooms/rooms.component';
+
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
     path: 'rooms',
-    component: RoomsComponent,
+    loadComponent: () =>
+      import('./rooms/rooms.component').then((c) => c.RoomsComponent),
     canActivate: [loginGuard],
     canActivateChild: [roomGuard],
     children: [

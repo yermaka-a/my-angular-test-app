@@ -4,6 +4,7 @@ import { HoverDirective } from '../hover.directive';
 import { JsonPipe } from '@angular/common';
 import { EmailvalidatorDirective } from '../emailvalidator/emailvalidator.directive';
 import { Router } from '@angular/router';
+import { LoginService } from '../login.service';
 
 @Component({
   selector: 'app-login',
@@ -14,12 +15,16 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   email: string = '';
   password: string = '';
-  constructor(@Inject(Router) private readonly route: Router) {}
+
+  constructor(
+    @Inject(Router) private readonly route: Router,
+    @Inject(LoginService) private readonly loginService: LoginService
+  ) {}
 
   login() {
-    if (this.email === 'admin@gmail.com' && this.password === 'Admin') {
-      alert('Login Successful');
-      this.route.navigate(['/rooms', 'add']);
+    const isLoggedIn = this.loginService.login(this.email, this.password);
+    if (isLoggedIn) {
+      this.route.navigate(['/rooms']);
     }
   }
 }

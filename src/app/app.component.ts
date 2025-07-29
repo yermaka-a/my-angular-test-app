@@ -6,7 +6,12 @@ import {
   type OnInit,
   type QueryList,
 } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {
+  NavigationEnd,
+  NavigationStart,
+  Router,
+  RouterOutlet,
+} from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 
 import { LocalStorageToken } from './localstorage.token';
@@ -20,6 +25,8 @@ import {
   MatDrawerContainer,
   MatDrawerContent,
 } from '@angular/material/sidenav';
+import { filter } from 'rxjs';
+import { LoginService } from './login.service';
 
 @Component({
   selector: 'app-root',
@@ -35,10 +42,18 @@ export class AppComponent implements AfterViewInit, OnInit {
   headerChildrenComponent!: QueryList<HeaderComponent>;
   constructor(
     @Inject(LocalStorageToken) private localStorage: Storage,
-    private initService: InitService
+    private initService: InitService,
+    @Inject(Router) private router: Router
   ) {}
   ngOnInit(): void {
     console.log('config', this.initService.config);
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationStart))
+      .subscribe((e) => console.log('navigation started', e));
+
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((e) => console.log('navigation ended', e));
   }
   ngAfterViewInit(): void {}
 }

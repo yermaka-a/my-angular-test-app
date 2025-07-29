@@ -1,6 +1,7 @@
 import { BookingComponent } from './booking/booking.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { loginGuard } from './guards/login.guard';
+import { roomGuard } from './guards/room.guard';
 import { LoginComponent } from './login/login.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { RoomsBookingComponent } from './rooms-booking/rooms-booking.component';
@@ -12,6 +13,7 @@ export const routes: Routes = [
     path: 'rooms',
     component: RoomsComponent,
     canActivate: [loginGuard],
+    canActivateChild: [roomGuard],
     children: [
       {
         path: 'add',
@@ -21,7 +23,7 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'rooms/:id',
+        path: ':id',
         component: RoomsBookingComponent,
       },
     ],

@@ -11,10 +11,11 @@ import { RoomsListComponent } from './rooms-list/rooms-list.component';
 import { RoomsService } from './services/rooms.service';
 import { CommonModule } from '@angular/common';
 import { map, type Subject, type Subscription } from 'rxjs';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-rooms',
-  imports: [RoomsListComponent, CommonModule],
+  imports: [RoomsListComponent, CommonModule, RouterOutlet],
   templateUrl: './rooms.component.html',
   styleUrl: './rooms.component.scss',
 })

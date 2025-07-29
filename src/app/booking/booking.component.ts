@@ -10,7 +10,10 @@ import { JsonPipe } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import {MatNativeDateModule} from "@angular/material/core"
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-booking',
   imports: [
@@ -19,7 +22,10 @@ import {MatNativeDateModule} from "@angular/material/core"
     MatInputModule,
     MatFormFieldModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatButtonModule,
+    MatExpansionModule,
+    MatIconModule,
   ],
   templateUrl: './booking.component.html',
   styleUrl: './booking.component.scss',
@@ -34,8 +40,7 @@ export class BookingComponent implements OnInit {
 
   ngOnInit() {
     this.bookingForm = this.fb.group({
-      bookingId: new FormControl(''),
-      roomId: [''],
+      roomId: new FormControl({ value: '2', disabled: true }),
       guestEmail: [''],
       checkinDate: [''],
       checkoutDate: [''],
@@ -50,6 +55,13 @@ export class BookingComponent implements OnInit {
       guestCountry: [''],
       guestZipCode: [''],
       guestCount: [''],
+      address: this.fb.group({
+        addressLine1: [''],
+        addresLine2: [''],
+      }),
     });
+  }
+  addBooking() {
+    console.log(this.bookingForm.value);
   }
 }

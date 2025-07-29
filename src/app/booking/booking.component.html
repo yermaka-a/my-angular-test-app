@@ -3,15 +3,10 @@
 {{ bookingForm.pristine | json }}
 {{ bookingForm.dirty | json }}
 
-<form [formGroup]="bookingForm">
-  <mat-form-field class="example-full-width">
+<form [formGroup]="bookingForm" (ngSubmit)="addBooking()">
+  <mat-form-field class="example-full-width" subscriptSizing="dynamic">
     <mat-label>Room Id</mat-label>
-    <input
-      type="text"
-      matInput
-      formControlName="roomId"
-      placeholder="room id"
-    />
+    <input type="text" matInput formControlName="roomId" />
 
     <!-- @if (emailFormControl.hasError('email') &&
     !emailFormControl.hasError('required')) {
@@ -20,27 +15,27 @@
     <mat-error>Email is <strong>required</strong></mat-error>
     } -->
   </mat-form-field>
-  <mat-form-field class="example-full-width">
+  <mat-form-field subscriptSizing="dynamic" class="example-full-width">
     <mat-label>Choose a date</mat-label>
-    <input matInput [matDatepicker]="picker" formControlName="checkinDate"/>
+    <input matInput [matDatepicker]="picker" formControlName="checkinDate" />
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
-  <mat-form-field class="example-full-width">
+  <mat-form-field class="example-full-width" subscriptSizing="dynamic">
     <input
       type="email"
       matInput
       formControlName="guestEmail"
       placeholder="provide an email"
   /></mat-form-field>
-  <mat-form-field class="example-full-width">
+  <mat-form-field class="example-full-width" subscriptSizing="dynamic">
     <input
       type="text"
       matInput
       formControlName="guestName"
       placeholder="guest name"
   /></mat-form-field>
-  <mat-form-field class="example-full-width">
+  <mat-form-field class="example-full-width" subscriptSizing="dynamic">
     <input
       type="text"
       matInput
@@ -54,4 +49,24 @@
       formControlName="bookingAmount"
       placeholder="bookingAmount"
   /></mat-form-field>
+  <div formGroupName="address">
+    <mat-accordion class="example-headers-align" multi>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Address </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-form-field subscriptSizing="dynamic">
+          <mat-label>addressLine1</mat-label>
+          <input type="text" matInput formControlName="addressLine1" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Age</mat-label>
+          <input matInput type="number" min="1" />
+        </mat-form-field>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <div><button mat-raised-button color="primary">Book Room</button></div>
 </form>

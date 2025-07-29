@@ -3,6 +3,7 @@ import {
   FormBuilder,
   FormControl,
   ReactiveFormsModule,
+  type FormArray,
   type FormGroup,
 } from '@angular/forms';
 import { ConfigService } from '../services/config.service';
@@ -37,7 +38,9 @@ export class BookingComponent implements OnInit {
     @Inject(ConfigService) private configService: ConfigService,
     @Inject(FormBuilder) private readonly fb: FormBuilder
   ) {}
-
+  get guests() {
+    return this.bookingForm.get('guests') as FormArray;
+  }
   ngOnInit() {
     this.bookingForm = this.fb.group({
       roomId: new FormControl({ value: '2', disabled: true }),
@@ -57,15 +60,29 @@ export class BookingComponent implements OnInit {
       guestCount: [''],
       address: this.fb.group({
         addressLine1: [''],
-        addresLine2: [''],
+        addressLine2: [''],
         city: [''],
         state: [''],
         country: [''],
         pinCodes: [''],
       }),
+      guests: this.fb.array([
+        this.fb.group({
+          guestName: [''],
+          age: new FormControl(''),
+        }),
+      ]),
     });
   }
   addBooking() {
     console.log(this.bookingForm.value);
+  }
+  addGuest() {
+    this.guests.push(
+      this.fb.group({
+        guestName: [''],
+        age: new FormControl(''),
+      })
+    );
   }
 }

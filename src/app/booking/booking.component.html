@@ -62,7 +62,7 @@
         </mat-form-field>
 
         <mat-form-field subscriptSizing="dynamic">
-          <mat-label>addressLine1</mat-label>
+          <mat-label>addressLine2</mat-label>
           <input type="text" matInput formControlName="addressLine2" />
         </mat-form-field>
         <mat-form-field subscriptSizing="dynamic">
@@ -84,6 +84,29 @@
       </mat-expansion-panel>
     </mat-accordion>
   </div>
-
+  <div formArrayName="guests">
+    @for (guest of guests.controls; track $index) {
+    <div [formGroupName]="$index">
+      <mat-form-field>
+        <mat-label>guest name</mat-label>
+        <input type="text" matInput formControlName="guestName" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>age</mat-label>
+        <input type="number" matInput formControlName="age" />
+      </mat-form-field>
+    </div>
+    }
+  </div>
+  <div>
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      (click)="addGuest()"
+    >
+      Add guest
+    </button>
+  </div>
   <div><button mat-raised-button color="primary">Book Room</button></div>
 </form>

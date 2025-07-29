@@ -52,7 +52,11 @@
       matInput
       formControlName="guestName"
       placeholder="guest name"
-  /></mat-form-field>
+    />
+    @if (bookingForm.get('guestName')?.hasError('minlength')) {
+    <mat-error>Length should be more 5 symbols</mat-error>
+    }
+  </mat-form-field>
   <mat-form-field class="example-full-width" subscriptSizing="dynamic">
     <input
       type="text"

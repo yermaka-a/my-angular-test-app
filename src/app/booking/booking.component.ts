@@ -81,6 +81,33 @@ export class BookingComponent implements OnInit {
   }
   addBooking() {
     console.log(this.bookingForm.value);
+    this.bookingForm.reset({
+      tnc: false,
+      roomId: '',
+      guestEmail: '',
+      checkinDate: '',
+      checkoutDate: '',
+      bookingStatus: '',
+      bookingAmount: '',
+      bookingDate: '',
+      mobileNumber: '',
+      guestName: '',
+      guestAddress: '',
+      guestCity: '',
+      guestState: '',
+      guestCountry: '',
+      guestZipCode: '',
+      guestCount: '',
+      address: {
+        addressLine1: '',
+        addressLine2: '',
+        city: '',
+        state: '',
+        country: '',
+        pinCodes: '',
+      },
+      guests: [],
+    });
   }
   addGuest() {
     this.guests.push(

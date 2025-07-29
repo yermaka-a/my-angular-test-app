@@ -12,7 +12,13 @@ export const routes: Routes = [
     component: RoomsComponent,
   },
   { path: 'employee', component: EmployeeComponent },
-  { path: 'rooms/add', component: RoomsAddComponent },
+  {
+    path: 'rooms/add',
+    loadComponent: () =>
+      import('./rooms-add/rooms-add.component').then(
+        (m) => m.RoomsAddComponent
+      ),
+  },
   { path: 'rooms/:id', component: RoomsBookingComponent },
   { path: '', component: LoginComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },

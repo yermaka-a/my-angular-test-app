@@ -1,4 +1,5 @@
 import { EmployeeComponent } from './employee/employee.component';
+import { LoginComponent } from './login/login.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { RoomsAddComponent } from './rooms-add/rooms-add.component';
 import { RoomsBookingComponent } from './rooms-booking/rooms-booking.component';
@@ -13,6 +14,7 @@ export const routes: Routes = [
   { path: 'employee', component: EmployeeComponent },
   { path: 'rooms/add', component: RoomsAddComponent },
   { path: 'rooms/:id', component: RoomsBookingComponent },
-  { path: '', redirectTo: '/rooms', pathMatch: 'full' },
+  { path: '', component: LoginComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: NotfoundComponent },
 ];

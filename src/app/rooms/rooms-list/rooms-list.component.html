@@ -13,7 +13,7 @@
       </tr>
     </thead>
     <tbody>
-      @for (item of rooms; track $index; let e = $even) {
+      @for (item of rooms | filter : 1000; track $index; let e = $even) {
       <tr [ngClass]="e ? 'even' : 'odd'">
         <td>{{ e ? "even" : "odd" }}</td>
         <td>{{ item.checkingTime | date : "medium" }}</td>

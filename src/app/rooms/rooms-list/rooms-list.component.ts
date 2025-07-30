@@ -11,16 +11,17 @@ import {
 import type { RoomList } from '../rooms';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { FilterPipe } from '../filter.pipe';
 
 @Component({
   selector: 'app-rooms-list',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FilterPipe],
   templateUrl: './rooms-list.component.html',
   styleUrl: './rooms-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RoomsListComponent implements OnInit, OnChanges {
-  @Input() rooms: RoomList[] | null = [];
+  @Input() rooms: RoomList[] = [];
   @Output() selectedRoom = new EventEmitter<RoomList>();
   ngOnInit(): void {}
 

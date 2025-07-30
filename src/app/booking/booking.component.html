@@ -53,6 +53,7 @@
       formControlName="guestName"
       placeholder="guest name"
     />
+    {{ bookingForm.get("guestName")?.errors | json }}
     @if (bookingForm.get('guestName')?.hasError('minlength')) {
     <mat-error>Length should be more 5 symbols</mat-error>
     }

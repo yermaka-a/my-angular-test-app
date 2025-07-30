@@ -1,14 +1,14 @@
-<p>rooms works!</p>
-<h1>welcome to {{ hotelName }}</h1>
+<!-- <p>rooms works!</p>
+<h1>welcome to {{ hotelName }}</h1> -->
 <router-outlet></router-outlet>
-<button class="btn btn-primary" (click)="toggle()">toggle</button>
+<!-- <button class="btn btn-primary" (click)="toggle()">toggle</button>
 <div [hidden]="hideRooms">
   Number of Rooms:
-  <div [innerText]="numberOfRooms"></div>
-</div>
+  <div [innerText]="numberOfRooms"></div> -->
+<!-- </div> -->
 <div>{{ room ? (room | json) : "" }}</div>
 <button class="btn btn-primary" (click)="addRoom()">add room</button>
-<button class="btn btn-primary" (click)="editRoom()">edit room</button>
+<!-- <button class="btn btn-primary" (click)="editRoom()">edit room</button> -->
 
 <app-rooms-list
   [rooms]="rooms$ | async"

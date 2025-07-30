@@ -18,6 +18,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { BookingService } from './booking.service';
+import { mergeMap, switchMap } from 'rxjs';
+import { CustomValidator } from './validators/CustomValidator';
 @Component({
   selector: 'app-booking',
   imports: [
@@ -40,7 +43,8 @@ export class BookingComponent implements OnInit {
 
   constructor(
     @Inject(ConfigService) private configService: ConfigService,
-    @Inject(FormBuilder) private readonly fb: FormBuilder
+    @Inject(FormBuilder) private readonly fb: FormBuilder,
+    @Inject(BookingService) private bookingService: BookingService
   ) {}
   get guests() {
     return this.bookingForm.get('guests') as FormArray;
@@ -63,7 +67,14 @@ export class BookingComponent implements OnInit {
         bookingAmount: [''],
         bookingDate: [''],
         mobileNumber: [''],
-        guestName: ['', [Validators.required, Validators.minLength(5)]],
+        guestName: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(5),
+            CustomValidator.ValidateName,
+          ],
+        ],
         guestAddress: [''],
         guestCity: [''],
         guestState: [''],
@@ -85,39 +96,48 @@ export class BookingComponent implements OnInit {
           }),
         ]),
       },
-      { updateOn: 'blur' }
+      { updateOn: 'change' }
     );
-    this.bookingForm.valueChanges.subscribe((data) => console.log(data));
+    // this.bookingForm.valueChanges.subscribe((data) => {
+    //   this.bookingService.bookRoom(data).subscribe((data) => {});
+    // });
+
+    this.bookingForm.valueChanges
+      .pipe(switchMap((data) => this.bookingService.bookRoom(data)))
+      .subscribe((data) => console.log(data));
   }
   addBooking() {
     console.log(this.bookingForm.value);
-    this.bookingForm.reset({
-      tnc: false,
-      roomId: '',
-      guestEmail: '',
-      checkinDate: '',
-      checkoutDate: '',
-      bookingStatus: '',
-      bookingAmount: '',
-      bookingDate: '',
-      mobileNumber: '',
-      guestName: '',
-      guestAddress: '',
-      guestCity: '',
-      guestState: '',
-      guestCountry: '',
-      guestZipCode: '',
-      guestCount: '',
-      address: {
-        addressLine1: '',
-        addressLine2: '',
-        city: '',
-        state: '',
-        country: '',
-        pinCodes: '',
-      },
-      guests: [],
-    });
+    this.bookingService
+      .bookRoom(this.bookingForm.getRawValue())
+      .subscribe((data) => console.log(data));
+    // this.bookingForm.reset({
+    //   tnc: false,
+    //   roomId: '',
+    //   guestEmail: '',
+    //   checkinDate: '',
+    //   checkoutDate: '',
+    //   bookingStatus: '',
+    //   bookingAmount: '',
+    //   bookingDate: '',
+    //   mobileNumber: '',
+    //   guestName: '',
+    //   guestAddress: '',
+    //   guestCity: '',
+    //   guestState: '',
+    //   guestCountry: '',
+    //   guestZipCode: '',
+    //   guestCount: '',
+    //   address: {
+    //     addressLine1: '',
+    //     addressLine2: '',
+    //     city: '',
+    //     state: '',
+    //     country: '',
+    //     pinCodes: '',
+    //   },
+    //   guests: [],
+    // });
 
     this.getBookingData();
   }

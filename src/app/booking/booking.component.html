@@ -3,7 +3,9 @@
 {{ bookingForm.pristine | json }}
 {{ bookingForm.dirty | json }}
 <br />
-
+{{ bookingForm.get("checkoutDate")?.errors | json }}
+<br />
+{{ bookingForm.invalid }}
 <button mat-raised-button color="primary" type="button" (click)="addPassport()">
   Add passport
 </button>
@@ -34,10 +36,30 @@
     } -->
   </mat-form-field>
   <mat-form-field subscriptSizing="dynamic" class="example-full-width">
-    <mat-label>Choose a date</mat-label>
-    <input matInput [matDatepicker]="picker" formControlName="checkinDate" />
-    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
+    <mat-label>Choose checkin date</mat-label>
+    <input
+      matInput
+      [matDatepicker]="checkinpicker"
+      formControlName="checkinDate"
+    />
+    <mat-datepicker-toggle
+      matIconSuffix
+      [for]="checkinpicker"
+    ></mat-datepicker-toggle>
+    <mat-datepicker #checkinpicker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field subscriptSizing="dynamic" class="example-full-width">
+    <mat-label>Choose checkout date</mat-label>
+    <input
+      matInput
+      [matDatepicker]="checkoutpicker"
+      formControlName="checkoutDate"
+    />
+    <mat-datepicker-toggle
+      matIconSuffix
+      [for]="checkoutpicker"
+    ></mat-datepicker-toggle>
+    <mat-datepicker #checkoutpicker></mat-datepicker>
   </mat-form-field>
   <mat-form-field class="example-full-width" subscriptSizing="dynamic">
     <input
@@ -53,7 +75,7 @@
       formControlName="guestName"
       placeholder="guest name"
     />
-    {{ bookingForm.get("guestName")?.errors | json }}
+
     @if (bookingForm.get('guestName')?.hasError('minlength')) {
     <mat-error>Length should be more 5 symbols</mat-error>
     }

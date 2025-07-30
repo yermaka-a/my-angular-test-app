@@ -69,11 +69,14 @@ export class BookingComponent implements OnInit {
         mobileNumber: [''],
         guestName: [
           '',
-          [
-            Validators.required,
-            Validators.minLength(5),
-            CustomValidator.ValidateName,
-          ],
+          {
+            updateOn: 'blur',
+            validators: [
+              Validators.required,
+              Validators.minLength(5),
+              CustomValidator.ValidateName,
+            ],
+          },
         ],
         guestAddress: [''],
         guestCity: [''],
@@ -81,22 +84,28 @@ export class BookingComponent implements OnInit {
         guestCountry: [''],
         guestZipCode: [''],
         guestCount: [''],
-        address: this.fb.group({
-          addressLine1: ['', { validators: [Validators.required] }],
-          addressLine2: [''],
-          city: ['', { validators: [Validators.required] }],
-          state: ['', { validators: [Validators.required] }],
-          country: [''],
-          pinCodes: [''],
-        }),
-        guests: this.fb.array([
-          this.fb.group({
-            guestName: ['', { validators: [Validators.required] }],
-            age: new FormControl(''),
-          }),
-        ]),
+        address: this.fb.group(
+          {
+            addressLine1: ['', [Validators.required]],
+            addressLine2: [''],
+            city: ['', { validators: [Validators.required] }],
+            state: ['', { validators: [Validators.required] }],
+            country: [''],
+            pinCodes: [''],
+          },
+          { updateOn: 'blur' }
+        ),
+        guests: this.fb.array(
+          [
+            this.fb.group({
+              guestName: ['', { validators: [Validators.required] }],
+              age: new FormControl(''),
+            }),
+          ],
+          { updateOn: 'blur' }
+        ),
       },
-      { updateOn: 'change' }
+      { updateOn: 'blur', validators: [CustomValidator.validateDate] }
     );
     // this.bookingForm.valueChanges.subscribe((data) => {
     //   this.bookingService.bookRoom(data).subscribe((data) => {});
